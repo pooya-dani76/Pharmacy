@@ -199,4 +199,11 @@ class SqliteStorage {
       // User canceled the picker
     }
   }
+
+  static Future<int> getCount({required String tableName}) async {
+    Database database = await openDB();
+    var result = await database.rawQuery('SELECT COUNT(*) FROM $tableName');
+    // await database.close();
+    return int.parse(result[0]['COUNT(*)'].toString());
+  }
 }

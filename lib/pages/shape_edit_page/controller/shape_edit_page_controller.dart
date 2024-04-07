@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pharmacy/data_base/models.dart';
 import 'package:pharmacy/data_base/sqlit_storage.dart';
 import 'package:pharmacy/pages/drug_edit_page/controller/drug_edit_page_controller.dart';
+import 'package:pharmacy/pages/main_page/controller/main_page_controller.dart';
 import 'package:pharmacy/pages/shape_page/controller/shape_page_controller.dart';
 import 'package:pharmacy/pages/widgets/dialog.dart';
 import 'package:pharmacy/utils/utils.dart';
@@ -44,6 +45,7 @@ putShapeDataForUpdate(Map shape) {
 
 onSubmitShapeTap({Map? arguments}) async {
   EditShapeController editShapeController = Get.find<EditShapeController>();
+  MainPageController mainPageController = Get.find<MainPageController>();
   ShapePageController shapePageController = Get.find<ShapePageController>();
 
   if (editShapeController.shapeNameController.text.trim().isEmpty) {
@@ -61,6 +63,7 @@ onSubmitShapeTap({Map? arguments}) async {
       Utils.logEvent(message: e.toString(), logType: LogType.error);
     }
     await shapePageController.loader!.reload();
+    await mainPageController.setBadges();
     Get.back();
   }
 }
@@ -71,6 +74,7 @@ onDeleteShapeTap({required BuildContext context, required Map shape}) {
       onYesTap: () async {
         EditShapeController editShapeController = Get.find<EditShapeController>();
         ShapePageController shapePageController = Get.find<ShapePageController>();
+        MainPageController mainPageController = Get.find<MainPageController>();
         editShapeController.setIsSubmittingStatus(true);
         Get.back();
         Batch batch = await SqliteStorage.createDatabaseBatch();
@@ -78,6 +82,7 @@ onDeleteShapeTap({required BuildContext context, required Map shape}) {
         batch.delete("DrugToShapes", where: "shape = ?", whereArgs: [shape['id']]);
         await SqliteStorage.commitAll(batch: batch);
         await shapePageController.loader!.reload();
+        await mainPageController.setBadges();
         Get.back();
       },
       onNoTap: () => Get.back());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy/pages/widgets/text.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
@@ -8,6 +9,7 @@ class CustomListTile extends StatelessWidget {
     this.onEditTap,
     this.onDeleteTap,
     this.subtitle,
+    required this.index,
   });
 
   final Widget title;
@@ -15,6 +17,7 @@ class CustomListTile extends StatelessWidget {
   final Function onTap;
   final Function? onEditTap;
   final Function? onDeleteTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,17 @@ class CustomListTile extends StatelessWidget {
         children: [
           ListTile(
             title: title,
+            leading: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 10,
+                  backgroundColor: Colors.transparent,
+                  child: CustomText(text: index.toString()),
+                ),
+                const VerticalDivider()
+              ],
+            ),
             subtitle: subtitle,
             onTap: () => onTap(),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [

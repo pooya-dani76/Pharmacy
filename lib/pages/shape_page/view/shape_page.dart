@@ -21,6 +21,7 @@ class ShapePage extends StatelessWidget {
           return controller.loader!.listView(
             itemBuilder: (context, index) {
               return CustomListTile(
+                index: index + 1,
                 onTap: () => routeToPage(
                     page: Routes.filterPage,
                     arguments: {'shape': controller.loader!.data[0][index]}),

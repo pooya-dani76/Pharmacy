@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pharmacy/data_base/sqlit_storage.dart';
 import 'package:pharmacy/pages/widgets/text.dart';
@@ -84,10 +84,15 @@ class LazyLoad {
       ));
     } else {
       return LazyLoadScrollView(
-        child: ListView.builder(
-          itemBuilder: itemBuilder,
-          itemCount: data[0].length,
-          padding: const EdgeInsets.only(bottom: 60),
+        child: CupertinoScrollbar(
+          thumbVisibility: true,
+          thickness: 5,
+          thicknessWhileDragging: 10,
+          child: ListView.builder(
+            itemBuilder: itemBuilder,
+            itemCount: data[0].length,
+            padding: const EdgeInsets.only(bottom: 60),
+          ),
         ),
         onEndOfPage: () => load(),
       );

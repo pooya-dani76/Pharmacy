@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmacy/data_base/sqlit_storage.dart';
 import 'package:pharmacy/pages/backup_page/view/backup_page.dart';
 import 'package:pharmacy/pages/category_page/controller/category_page_controller.dart';
 import 'package:pharmacy/pages/category_page/view/category_page.dart';
@@ -12,10 +13,26 @@ import 'package:pharmacy/routes/routes.dart';
 class MainPageController extends GetxController {
   int currentIndex = 0;
   bool isSearching = false;
+  int drugBadge = 0;
+  int categoryBadge = 0;
+  int shapeBadge = 0;
   TextEditingController searchController = TextEditingController();
+
+  @override
+  void onInit(){
+    setBadges();
+    super.onInit();
+  }
 
   setSearching(bool value) {
     isSearching = value;
+    update();
+  }
+
+  setBadges() async {
+    drugBadge = await SqliteStorage.getCount(tableName: 'Drugs');
+    categoryBadge = await SqliteStorage.getCount(tableName: 'DrugCategories');
+    shapeBadge = await SqliteStorage.getCount(tableName: 'DrugShapes');
     update();
   }
 

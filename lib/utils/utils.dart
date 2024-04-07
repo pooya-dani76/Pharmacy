@@ -52,4 +52,9 @@ class Utils {
     ).show(Get.context!);
   }
 
+  static Map tableMap = {
+    'دارو': 'Drugs',
+    'دسته بندی': 'DrugCategories',
+    'اشکال دارویی': 'DrugShapes',
+  };
 }

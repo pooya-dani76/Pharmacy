@@ -7,6 +7,7 @@ import 'package:pharmacy/data_base/sqlit_storage.dart';
 import 'package:pharmacy/pages/category_page/controller/category_page_controller.dart';
 import 'package:pharmacy/pages/drug_edit_page/controller/drug_edit_page_controller.dart';
 import 'package:pharmacy/pages/drug_page/controller/drug_page_controller.dart';
+import 'package:pharmacy/pages/main_page/controller/main_page_controller.dart';
 import 'package:pharmacy/pages/widgets/dialog.dart';
 import 'package:pharmacy/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
@@ -47,6 +48,7 @@ onSubmitCategoryTap({Map? arguments}) async {
   EditCategoryController editCategoryController = Get.find<EditCategoryController>();
   CategoryPageController categoyPageController = Get.find<CategoryPageController>();
   DrugPageController drugPageController = Get.find<DrugPageController>();
+  MainPageController mainPageController = Get.find<MainPageController>();
   if (editCategoryController.categoryNameController.text.trim().isEmpty) {
     Utils.showToast(message: "نام دسته بندی نباید خالی باشد", isError: true);
   } else {
@@ -63,6 +65,7 @@ onSubmitCategoryTap({Map? arguments}) async {
     }
     await categoyPageController.loader!.reload();
     await drugPageController.loader!.reload();
+    await mainPageController.setBadges();
     Get.back();
   }
 }
@@ -74,6 +77,7 @@ onDeleteCategoryTap({required BuildContext context, required Map category}) {
         EditCategoryController editCategoryController = Get.find<EditCategoryController>();
         CategoryPageController categoyPageController = Get.find<CategoryPageController>();
         DrugPageController drugPageController = Get.find<DrugPageController>();
+        MainPageController mainPageController = Get.find<MainPageController>();
         editCategoryController.setIsSubmittingStatus(true);
         Get.back();
         Batch batch = await SqliteStorage.createDatabaseBatch();
@@ -82,6 +86,7 @@ onDeleteCategoryTap({required BuildContext context, required Map category}) {
         await SqliteStorage.commitAll(batch: batch);
         await categoyPageController.loader!.reload();
         await drugPageController.loader!.reload();
+        await mainPageController.setBadges();
         Get.back();
       },
       onNoTap: () => Get.back());

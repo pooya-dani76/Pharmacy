@@ -6,6 +6,7 @@ import 'package:pharmacy/data_base/models.dart';
 import 'package:pharmacy/data_base/sqlit_storage.dart';
 import 'package:pharmacy/pages/drug_page/controller/drug_page_controller.dart';
 import 'package:pharmacy/pages/filter_page/controller/filter_page_controller.dart';
+import 'package:pharmacy/pages/main_page/controller/main_page_controller.dart';
 import 'package:pharmacy/pages/widgets/check_box_selector/controller/check_box_selector_controller.dart';
 import 'package:pharmacy/pages/widgets/dialog.dart';
 import 'package:pharmacy/routes/routes.dart';
@@ -125,6 +126,7 @@ class EditDrugPageController extends GetxController {
 
   saveData() async {
     DrugPageController drugPageController = Get.find<DrugPageController>();
+    MainPageController mainPageController = Get.find<MainPageController>();
     setIsSubmittingStatus(true);
     Drug drug = createInstance();
     int insertedId = await SqliteStorage.add(tableName: 'Drugs', instance: drug);
@@ -135,6 +137,7 @@ class EditDrugPageController extends GetxController {
       await SqliteStorage.commitAll(batch: batch);
       setIsSubmittingStatus(false);
       await drugPageController.loader!.reload();
+      await mainPageController.setBadges();
       Get.back();
     } else {
       Utils.showToast(
@@ -193,6 +196,7 @@ onDeleteDrugTap({required Map drug}) {
       title: "آیا مطمنید می خواهید این دارو را حذف کنید؟",
       onYesTap: () async {
         EditDrugPageController editDrugPageController = Get.find<EditDrugPageController>();
+        MainPageController mainPageController = Get.find<MainPageController>();
         DrugPageController drugPageController = Get.find<DrugPageController>();
         editDrugPageController.setIsSubmittingStatus(true);
         Get.back();
@@ -202,6 +206,7 @@ onDeleteDrugTap({required Map drug}) {
         batch.delete("Drugs", where: "id = ?", whereArgs: [drug['id']]);
         await SqliteStorage.commitAll(batch: batch);
         await drugPageController.loader!.reload();
+        await mainPageController.setBadges();
         Get.back();
       },
       onNoTap: () => Get.back());

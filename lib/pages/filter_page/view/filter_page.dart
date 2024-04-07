@@ -31,6 +31,7 @@ class FilterPage extends StatelessWidget {
           if (controller.loader != null) {
           return controller.loader!.listView(itemBuilder: (context, index) {
                 return CustomListTile(
+                  index: index + 1,
                   onTap: () => routeToPage(
                       page: Routes.editDrugPage,
                       arguments: {"drug_data": controller.loader!.data[0][index]}),

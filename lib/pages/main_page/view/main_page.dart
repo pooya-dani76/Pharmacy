@@ -28,11 +28,17 @@ class MainPage extends StatelessWidget {
               onTap: (int index) => controller.setCurrentIndex(index),
               items: [
                 CustomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/images/drugs.svg",
-                    colorFilter: ColorFilter.mode(
-                        controller.currentIndex == 0 ? appController.appColor : Colors.grey,
-                        BlendMode.srcIn),
+                  icon: Badge(
+                    backgroundColor: appController.appColor,
+                    offset: const Offset(-20, -4),
+                    label: Text(controller.drugBadge.toString()),
+                    textStyle: const TextStyle(fontFamily: "Vazir", fontSize: 12),
+                    child: SvgPicture.asset(
+                      "assets/images/drugs.svg",
+                      colorFilter: ColorFilter.mode(
+                          controller.currentIndex == 0 ? appController.appColor : Colors.grey,
+                          BlendMode.srcIn),
+                    ),
                   ),
                   title: CustomText(
                     text: "دارو",
@@ -40,11 +46,17 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
                 CustomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/images/categories.svg",
-                    colorFilter: ColorFilter.mode(
-                        controller.currentIndex == 1 ? appController.appColor : Colors.grey,
-                        BlendMode.srcIn),
+                  icon: Badge(
+                    backgroundColor: appController.appColor,
+                    offset: const Offset(-20, -4),
+                    label: Text(controller.categoryBadge.toString()),
+                    textStyle: const TextStyle(fontFamily: "Vazir", fontSize: 12),
+                    child: SvgPicture.asset(
+                      "assets/images/categories.svg",
+                      colorFilter: ColorFilter.mode(
+                          controller.currentIndex == 1 ? appController.appColor : Colors.grey,
+                          BlendMode.srcIn),
+                    ),
                   ),
                   title: CustomText(
                     text: "دسته بندی",
@@ -52,11 +64,17 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
                 CustomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    "assets/images/shapes.svg",
-                    colorFilter: ColorFilter.mode(
-                        controller.currentIndex == 2 ? appController.appColor : Colors.grey,
-                        BlendMode.srcIn),
+                  icon: Badge(
+                    backgroundColor: appController.appColor,
+                    offset: const Offset(-20, -4),
+                    label: Text(controller.shapeBadge.toString()),
+                    textStyle: const TextStyle(fontFamily: "Vazir", fontSize: 12),
+                    child: SvgPicture.asset(
+                      "assets/images/shapes.svg",
+                      colorFilter: ColorFilter.mode(
+                          controller.currentIndex == 2 ? appController.appColor : Colors.grey,
+                          BlendMode.srcIn),
+                    ),
                   ),
                   title: CustomText(
                     text: "اشکال دارویی",
