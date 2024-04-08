@@ -26,16 +26,13 @@ class CustomListTile extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: title,
-            leading: Row(
-              mainAxisSize: MainAxisSize.min,
+            title: Wrap(
               children: [
-                CircleAvatar(
-                  radius: 10,
-                  backgroundColor: Colors.transparent,
-                  child: CustomText(text: index.toString()),
+                CustomText(
+                  text: '$index- ',
+                  fontWeight: FontWeight.bold,
                 ),
-                const VerticalDivider()
+                title
               ],
             ),
             subtitle: subtitle,

@@ -50,6 +50,7 @@ class CheckBoxSelectorController {
     bool isShowCancelSearch = false;
     Get.defaultDialog(
       title: title,
+      titleStyle: const TextStyle(fontFamily: "Vazir", fontSize: 20),
       content: StatefulBuilder(builder: (context, setState) {
         loader ??=
             LazyLoad(sqlCommands: ["""$query ORDER BY name"""], afterLoad: () => setState(() {}));
@@ -149,8 +150,9 @@ class CheckBoxSelectorController {
                     child: CustomButton(
                       title: "افزودن  +",
                       onTap: () async => await onAddTap().whenComplete(() => setState(() {
-                            loader =
-                                LazyLoad(sqlCommands: ["""$query ORDER BY name"""], afterLoad: () => setState(() {}));
+                            loader = LazyLoad(
+                                sqlCommands: ["""$query ORDER BY name"""],
+                                afterLoad: () => setState(() {}));
                           })),
                     ),
                   ),
