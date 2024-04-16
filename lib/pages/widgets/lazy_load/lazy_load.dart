@@ -86,8 +86,11 @@ class LazyLoad {
       return LazyLoadScrollView(
         child: CupertinoScrollbar(
           thumbVisibility: true,
-          thickness: 5,
-          thicknessWhileDragging: 10,
+          thickness: 10,
+          thicknessWhileDragging: 15,
+
+          radiusWhileDragging: const Radius.circular(10),
+          radius: const Radius.circular(10),
           child: ListView.builder(
             itemBuilder: itemBuilder,
             itemCount: data[0].length,

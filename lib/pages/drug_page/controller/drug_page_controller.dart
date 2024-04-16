@@ -10,8 +10,8 @@ class DrugPageController extends GetxController {
       """SELECT Drugs.*,
     group_concat(DrugCategories.name,'#') AS categories
     FROM Drugs 
-    JOIN DrugToCategories ON Drugs.id = DrugToCategories.drug 
-    JOIN DrugCategories ON DrugCategories.id = DrugToCategories.category 
+    LEFT JOIN DrugToCategories ON Drugs.id = DrugToCategories.drug 
+    LEFT JOIN DrugCategories ON DrugCategories.id = DrugToCategories.category 
     GROUP BY Drugs.id 
     ORDER BY Drugs.name""",
     ]);
@@ -29,8 +29,8 @@ searchDrugs({required String value}) async {
       """SELECT Drugs.*,
     group_concat(DrugCategories.name,'#') AS categories
     FROM Drugs 
-    JOIN DrugToCategories ON Drugs.id = DrugToCategories.drug 
-    JOIN DrugCategories ON DrugCategories.id = DrugToCategories.category 
+    LEFT JOIN DrugToCategories ON Drugs.id = DrugToCategories.drug 
+    LEFT JOIN DrugCategories ON DrugCategories.id = DrugToCategories.category 
     Where Drugs.name Like "%$value%"
     GROUP BY Drugs.id 
     ORDER BY Drugs.name""",

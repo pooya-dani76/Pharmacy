@@ -34,7 +34,7 @@ class DrugPage extends StatelessWidget {
                     alignment: WrapAlignment.start,
                     spacing: 10,
                     runSpacing: 5,
-                    children: controller.loader!.data[0][index]['categories']
+                    children: controller.loader!.data[0][index]['categories'] != null ? controller.loader!.data[0][index]['categories']
                         .split('#')
                         .map<Widget>((element) => Container(
                               height: 30,
@@ -54,7 +54,7 @@ class DrugPage extends StatelessWidget {
                                   )
                                 ],
                               ),
-                            )).toList()),
+                            )).toList() : []) ,
               ),
             );
           });
